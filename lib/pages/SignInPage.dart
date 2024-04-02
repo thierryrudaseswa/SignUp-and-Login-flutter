@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Siggn Up",
+                "Siggn In",
                 style: TextStyle(
                     fontSize: 35,
                     color: Colors.white,
@@ -62,11 +62,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "If you already have an Account ?",
+                    "If you don't have an Account ?",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   Text(
-                    "Login",
+                    "  Sign Up",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -74,6 +74,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   )
                 ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Forgot Password?",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -93,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
       child: Center(
         child: Text(
-          "Sign Up",
+          "Sign In",
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),
