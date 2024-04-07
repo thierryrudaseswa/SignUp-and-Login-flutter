@@ -113,6 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
           });
         } catch (e) {
           final snackbar = SnackBar(content: Text(e.toString()));
+
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
           setState(() {
             circular = false;

@@ -6,6 +6,7 @@ import 'package:thirder/pages/SignUpPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -19,6 +20,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+
   void signup() async {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(

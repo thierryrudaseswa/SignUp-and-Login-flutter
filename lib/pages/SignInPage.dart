@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+
 import 'package:thirder/pages/HomePage.dart';
 
 class SignInPage extends StatefulWidget {
