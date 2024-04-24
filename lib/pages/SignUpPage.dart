@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:thirder/Service/Auth_Service.dart';
 import 'package:thirder/pages/HomePage.dart';
+import 'package:thirder/pages/PhoneAuthPage.dart';
 import 'package:thirder/pages/SignInPage.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -40,15 +41,19 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(
                 height: 20,
               ),
-              buttonItem("assets/phone.svg", "Continue With Mobile", 25,
+              buttonItem("assets/google.svg", " Continue With Google", 25,
                   () async {
                 await authClass.googleSignIn(context);
               }),
               SizedBox(
                 height: 15,
               ),
-              buttonItem(
-                  "assets/google.svg", "Continue With Google", 25, () {}),
+              buttonItem("assets/phone.svg", "Continue With Mobile", 25, () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (builder) => PhoneAuthPage()),
+                    (route) => false);
+              }),
               SizedBox(
                 height: 15,
               ),
