@@ -15,7 +15,9 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  static final ValueNotifier<Color> themeNotifier = ValueNotifier<Color>(
+      ThemeMode.light == ThemeMode.light ? Colors.white : Colors.black);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -27,17 +29,44 @@ class _MyAppState extends State<MyApp> {
   AuthClass authClass = AuthClass();
   void initState() {
     super.initState();
+    checkLogin();
   }
 
   void checkLogin() async {
     String? token = await authClass.getToken();
     if (token != null) {
-      currentPage = HomePage();
+      setState(() {
+        currentPage = HomePage();
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomePage());
+    return ValueListenableBuilder<Color>(
+      valueListenable: MyApp.themeNotifier,
+      builder: (_, Color currentColor, __) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.amber,
+            // backgroundColor: currentColor,
+            textTheme: TextTheme(
+              bodyText1: TextStyle(color: currentColor),
+              bodyText2: TextStyle(color: currentColor),
+            ),
+          ),
+          darkTheme: ThemeData.dark().copyWith(
+            backgroundColor: currentColor,
+            textTheme: TextTheme(
+              bodyText1: TextStyle(color: currentColor),
+              bodyText2: TextStyle(color: currentColor),
+            ),
+          ),
+          themeMode: ThemeMode.light, // Set the default theme mode to light
+          home: currentPage,
+        );
+      },
+    );
   }
 }
