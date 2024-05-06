@@ -25,10 +25,6 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Color appBarTextColor = MyApp.themeNotifier.value == ThemeMode.dark
-        ? Colors.white
-        : Colors.black;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -36,7 +32,6 @@ class HomePageState extends State<HomePage> {
           style: TextStyle(
             fontSize: 34,
             fontWeight: FontWeight.bold,
-            color: appBarTextColor,
           ),
         ),
         actions: [
@@ -68,23 +63,6 @@ class HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontSize: 33,
                       fontWeight: FontWeight.w600,
-                      color: appBarTextColor,
-                    ),
-                  ),
-                  Tooltip(
-                    message: "theme change",
-                    child: IconButton(
-                      icon: Icon(
-                        MyApp.themeNotifier.value == ThemeMode.light
-                            ? Icons.dark_mode
-                            : Icons.light_mode,
-                      ),
-                      onPressed: () {
-                        MyApp.themeNotifier.value =
-                            MyApp.themeNotifier.value == ThemeMode.light
-                                ? ThemeMode.dark
-                                : ThemeMode.light;
-                      },
                     ),
                   ),
                   IconButton(
@@ -115,7 +93,6 @@ class HomePageState extends State<HomePage> {
             icon: Icon(
               Icons.home,
               size: 32,
-              color: appBarTextColor,
             ),
             label: 'Home',
           ),
@@ -140,7 +117,6 @@ class HomePageState extends State<HomePage> {
                 child: Icon(
                   Icons.add,
                   size: 32,
-                  color: appBarTextColor,
                 ),
               ),
             ),
@@ -150,7 +126,6 @@ class HomePageState extends State<HomePage> {
             icon: Icon(
               Icons.settings,
               size: 32,
-              color: appBarTextColor,
             ),
             label: 'Settings',
           )
@@ -164,37 +139,36 @@ class HomePageState extends State<HomePage> {
               child: CircularProgressIndicator(),
             );
           }
+          IconData iconData;
+          Color iconColor;
+          Map<String, dynamic> document =
+              snapshot.data!.data() as Map<String, dynamic>;
+          switch (document["category"]) {
+            case "Work":
+              iconData = Icons.run_circle_outlined;
+              iconColor = Colors.white;
+              break;
+            case "WorkOut":
+              iconData = Icons.alarm;
+              iconColor = Colors.teal;
+              break;
+            case "Food":
+              iconData = Icons.local_grocery_store;
+              iconColor = Colors.blue;
+              break;
+            case "Design":
+              iconData = Icons.audiotrack;
+              iconColor = Colors.green;
+              break;
+            default:
+              iconData = Icons.run_circle_outlined;
+              iconColor = Colors.red;
+          }
+          selected.add(
+              Select(id: snapshot.data!.id ?? "defaultId", checkvalue: false));
           return ListView.builder(
-            itemCount: snapshot.data?.data()?.length ?? 0,
+            itemCount: 1, // Assuming only one document snapshot
             itemBuilder: (context, index) {
-              IconData iconData;
-              Color iconColor;
-              Map<String, dynamic> document =
-                  snapshot.data?.data() as Map<String, dynamic>;
-              switch (document["category"]) {
-                case "Work":
-                  iconData = Icons.run_circle_outlined;
-                  iconColor = Colors.white;
-                  break;
-                case "WorkOut":
-                  iconData = Icons.alarm;
-                  iconColor = Colors.teal;
-                  break;
-                case "Food":
-                  iconData = Icons.local_grocery_store;
-                  iconColor = Colors.blue;
-                  break;
-                case "Design":
-                  iconData = Icons.audiotrack;
-                  iconColor = Colors.green;
-                  break;
-                default:
-                  iconData = Icons.run_circle_outlined;
-                  iconColor = Colors.red;
-              }
-              selected.add(Select(
-                  id: snapshot.data?.docs[index].id ?? "defaultId",
-                  checkvalue: false));
               return InkWell(
                 onTap: () {
                   Navigator.push(
@@ -202,7 +176,7 @@ class HomePageState extends State<HomePage> {
                     MaterialPageRoute(
                       builder: (builder) => ViewData(
                         document: document,
-                        id: snapshot.data?.docs[index].id ?? "defaultId",
+                        id: snapshot.data!.id ?? "defaultId",
                       ),
                     ),
                   );
