@@ -201,7 +201,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(width: 1.5, color: Colors.amber)),
+                borderSide: BorderSide(width: 1.5, color: Colors.amberAccent)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
                 borderSide: BorderSide(width: 1, color: Colors.grey))),
